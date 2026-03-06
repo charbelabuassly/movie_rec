@@ -31,12 +31,12 @@ def buildSimilarityTable(cur,cnx,batch_size=5000):
     for idx in range(similarity_matrix.shape[0]): #We are looping over the indices which are the movie index, we use the previous map to determine their specific movieId
         # get the similarity row as 1D array
         movie_similarity = similarity_matrix.getrow(idx).toarray().flatten()
-        movie_similarity[idx] = -1  
+        movie_similarity[idx] = -1   #We do this because we do not want to take the movie itself with it's most similar neighbors
         
         # top 20 similar movies
-        most_similar_indices = movie_similarity.argsort()[::-1][:20]
+        most_similar_indices = movie_similarity.argsort()[::-1][:20] #getting the indices where the top 20 movies exist 
         
-        movie_id = int(idx_movieid_map.iloc[idx])  # actual movie id
+        movie_id = int(idx_movieid_map.iloc[idx])  # actual movie id of the movie index we are currently at
         
         rank = 1
         for i in most_similar_indices:
@@ -45,13 +45,13 @@ def buildSimilarityTable(cur,cnx,batch_size=5000):
             batch.append((movie_id, similar_movie_id, rank, similarity_score))
             rank += 1
         
-        # Insert batch if it reaches batch_size
+        #Insert batch if it reaches batch_size
         if len(batch) >= batch_size:
             cur.executemany(insert_query, batch)
             cnx.commit()
             batch = []
     
-    # insert any remaining rows
+    #insert any remaining rows
     if batch:
         cur.executemany(insert_query, batch)
         cnx.commit()

@@ -10,12 +10,11 @@ def get_user_by_email(email) -> dict:
     return user  
     
 def register_user(data : dict):
-   cur = cnx.cursor(dictionary=True, buffered=True)
-   cur.execute("Select max(user_id) as max_id from users")
-   new_max = (cur.fetchone())['max_id']
-   if new_max is None: #Just in case, the loaded users table is clean from data
-       new_max = 0 
-   else:
+    cur = cnx.cursor(dictionary=True, buffered=True)
+    cur.execute("Select max(user_id) as max_id from users")
+    new_max = (cur.fetchone())['max_id']
+    if new_max is None: #Just in case, the loaded users table is clean from data
+        new_max = 0 
     new_max+=1
     insert_query = """
         INSERT INTO users (user_id, user_name, user_email, user_password, is_deleted)

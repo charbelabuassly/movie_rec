@@ -17,5 +17,5 @@ async def removeFromWatchList(movieData : MovieToWatchList, email : EmailStr = D
     return removeMovie(movieData, email)
 
 @movies_router.post('/markWatched')
-async def markWatched(movieData : Watched, MovieToWatchList, email : EmailStr = Depends(get_user)):
+async def markWatched(movieData : Watched,  email : EmailStr = Depends(get_user)):
     return setWatched(movieData, email)

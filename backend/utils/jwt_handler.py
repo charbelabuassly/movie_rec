@@ -29,7 +29,7 @@ def create_token(data : dict, expire_time : int):
 def get_user(token : str = Depends(o2_scheme)):
     #We need to decode it, and validate the token
     try:
-        payload = jwt.decode(token, ket = SECRET_KEY, algorithms=[ALGORITHM])
+        payload = jwt.decode(token, key = SECRET_KEY, algorithms=[ALGORITHM])
         return payload['email']
     except ExpiredSignatureError:
         raise HTTPException(status_code=401, detail="Expired Token")

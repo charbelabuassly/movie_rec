@@ -14,13 +14,13 @@ def buildSimilarityTable(cur,cnx,batch_size=5000):
 
     sparse = csr_matrix(pivot.fillna(0).values)
 
-    similarity_matrix = cosine_similarity(sparse.T, dense_output=False) 
+    similarity_matrix = cosine_similarity(sparse.T, dense_output=False)  #Cosine checks how similar rows are to each other, we need to transpose to check how similar are movies to each other
 
-    idx_movieid_map = pd.Series(df_movies['movieId'].values)
+    idx_movieid_map = pd.Series(pivot.columns) #Movie Index to Movie ID map, since columns are the movie id and each has its own index, we can grab the index to movieId mapping and loop over the index (transposed) to grab the movieId
     
     # Clear the table first
     cur.execute('TRUNCATE TABLE movie_similarity')
-    
+    #Building the similarity table, this is where similarity scores are going to be determined
     insert_query = """
         INSERT INTO movie_similarity (movie_id, similar_movie_id, ranking, similarity_score)
         VALUES (%s, %s, %s, %s)
@@ -28,7 +28,7 @@ def buildSimilarityTable(cur,cnx,batch_size=5000):
     
     batch = []  
     
-    for idx in range(similarity_matrix.shape[0]):
+    for idx in range(similarity_matrix.shape[0]): #We are looping over the indices which are the movie index, we use the previous map to determine their specific movieId
         # get the similarity row as 1D array
         movie_similarity = similarity_matrix.getrow(idx).toarray().flatten()
         movie_similarity[idx] = -1  

@@ -10,15 +10,13 @@ def checkMovie(movieId : int) -> bool:
         select movie_id from movies where movie_id = (%s)
     """
     cur.execute(select_query,(movieId,))
-    movie_status = cur.fetchone()['movie_id']
+    #movie_status = cur.fetchone()['movie_id']
+    res = cur.fetchone()
     cur.close()
-    if movie_status is None:
+    if res is None:
         return False
-    else:
-        return True
+    return True 
     
-    
-
 def addMovie(movieId : int, userId : int):
     insert_query = """
         Insert into watch_list (movie_id, user_id, watched, is_deleted) values (%s, %s ,%s ,%s)

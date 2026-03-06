@@ -1,11 +1,21 @@
 from fastapi import FastAPI
-import os
-from dotenv import load_dotenv
 from backend.routers.auth import auth_user
 from backend.routers.movies import movies_router
-load_dotenv()
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI() #fastapi Initialization
+origins = [
+    "http://localhost:3000" 
+]
+
+#CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 #Including all Routes
 app.include_router(auth_user, prefix = '/auth') #/auth/...

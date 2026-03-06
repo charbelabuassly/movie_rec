@@ -1,0 +1,72 @@
+# -----------------------------
+# Python / Data stuff
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+venv/
+env/
+ENV/
+.venv
+temp_*.csv
+**/temp_*.csv
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+*.egg-info/
+*.db
+*.sqlite
+*.sqlite3
+*.log
+Thumbs.db
+
+# Ignore specific large CSVs only (not all .csv files)
+**/datasets/links.csv
+**/datasets/movies.csv
+**/datasets/ratings.csv
+**/datasets/tags.csv
+**/datasets/cleaned_datasets/links_cleaned.csv
+**/datasets/cleaned_datasets/movies_cleaned.csv
+**/datasets/cleaned_datasets/ratings_cleaned.csv
+**/datasets/cleaned_datasets/tags_cleaned.csv
+
+# Keep empty folders in Git
+!/datasets/.gitkeep
+!/datasets/cleaned_datasets/.gitkeep
+
+# -----------------------------
+# React / Node.js - Match in ANY directory
+**/node_modules/
+**/build/
+**/dist/
+
+# Environment files
+.env
+**/.env
+**/.env.local
+**/.env.development.local
+**/.env.test.local
+**/.env.production.local
+
+# Log files
+**/npm-debug.log*
+**/yarn-debug.log*
+**/yarn-error.log*
+**/pnpm-debug.log*
+
+# Testing
+**/coverage/
+
+# Production
+**/.next/
+**/out/
+
+# Misc
+**/.DS_Store
+**/.vscode/
+**/.idea/

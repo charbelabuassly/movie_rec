@@ -1,6 +1,6 @@
 from fastapi import FastAPI
-from backend.routers.auth import auth_user
-from backend.routers.movies import movies_router
+from backend.routers.auth_route import auth_user
+from backend.routers.movies_route import movies_router
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI() #fastapi Initialization

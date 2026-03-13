@@ -1,5 +1,5 @@
 from backend.schemas.auth_schema import LoginRequest, SignupRequest
-from backend.controllers.users import login_controller, signup_controller
+from backend.controllers.users_controller import login_controller, signup_controller
 from fastapi import APIRouter
 #This page will handle all user related urls. Like Login , Login etc
     

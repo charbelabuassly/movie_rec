@@ -1,5 +1,5 @@
 from fastapi import HTTPException
-from backend.models.users import get_user_by_email, register_user
+from backend.models.users_model import get_user_by_email, register_user
 from backend.utils.pass_handler import verify_password, hash_password, validate_pass
 from backend.utils.jwt_handler import create_token
 import os
@@ -44,3 +44,4 @@ def signup_controller(request) -> dict: #Will return jwt token upon account crea
             register_user({"name" : name, "password" : password, "email" : email})
             #Create the token
             return {'access_token' : create_token({'email' : email}, EXPIRE_TIME)}
+        

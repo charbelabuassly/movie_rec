@@ -1,4 +1,4 @@
-from backend.controllers.movies_controller import addMovies, removeMovie, setWatched
+from backend.controllers.movies.movies_controller import addMovies, removeMovie, setWatched
 from fastapi import APIRouter, Depends
 from backend.schemas.movie_schema import MovieToWatchList, Watched
 from backend.utils.user_authorization import get_current_user

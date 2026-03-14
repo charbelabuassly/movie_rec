@@ -1,7 +1,7 @@
 from fastapi import HTTPException
-from backend.models.movies_model import checkMovie, addMovie as addMovieModel, removeMovie as removeMovieModel, setWatched as setWatchedModel
-from backend.models.tags_model import insert_tag
-from backend.models.ratings_model import insert_rating
+from backend.models.movies.movies_model import checkMovie, addMovie as addMovieModel, removeMovie as removeMovieModel, setWatched as setWatchedModel
+from backend.models.movies.tags_model import insert_tag
+from backend.models.movies.ratings_model import insert_rating
 
 def addMovies(movieData, user) -> dict:
     user_id = user['user_id'] #grabbing the user_id
@@ -13,7 +13,11 @@ def addMovies(movieData, user) -> dict:
         raise HTTPException(status_code=404, detail="Movie Not Found")
     else:
         addMovieModel(movie_id, user_id)
-        return {"status" : "Movie Added Successfully"}
+        return {
+            "status": True,
+            "message": "Movie added successfully",
+            "data": None,
+        }
             
         
 def removeMovie(movieData, user) -> dict:
@@ -26,7 +30,11 @@ def removeMovie(movieData, user) -> dict:
         raise HTTPException(status_code=404, detail="Movie Not Found")
     else:
         removeMovieModel(movie_id, user_id)
-        return {"status" : "Movie Removed Successfully"}
+        return {
+            "status": True,
+            "message": "Movie removed successfully",
+            "data": None,
+        }
             
 def setWatched(movieData, user) -> dict:
     movie_id = movieData.movieId
@@ -45,4 +53,8 @@ def setWatched(movieData, user) -> dict:
         #3- insert a new tags if not "" 
         if tags != "":
             insert_tag(movieId=movie_id, tag=tags, userId=user_id)
-        return {"status" : "Movie set as watched"}
+        return {
+            "status": True,
+            "message": "Movie set as watched",
+            "data": None,
+        }

@@ -1,6 +1,6 @@
 from fastapi import Depends, HTTPException
 from backend.utils.jwt_handler import get_user
-from backend.models.users_model import get_user_by_email
+from backend.models.users.users_model import get_user_by_email
 
 
 def require_user_by_email(email: str) -> dict:

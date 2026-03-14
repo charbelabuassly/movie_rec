@@ -71,3 +71,22 @@ CREATE TABLE watch_list (
     FOREIGN KEY (movie_id) REFERENCES movies(movie_id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = INNODB
+
+
+CREATE INDEX idx_movies_weighted_rating
+ON movies(weighted_rating DESC);
+
+CREATE INDEX idx_ratings_user
+ON ratings(user_id);
+
+CREATE INDEX idx_movie_genre_genre
+ON movie_genre(genre_id);
+
+CREATE INDEX idx_watchlist_user
+ON watch_list(user_id);
+
+CREATE INDEX idx_movie_similarity_reverse
+ON movie_similarity(similar_movie_id);
+
+CREATE INDEX idx_tags_tag
+ON tags(tag(255));

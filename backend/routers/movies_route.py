@@ -1,8 +1,9 @@
-from backend.controllers.movies.movies_controller import addMovies, removeMovie, setWatched
+from backend.controllers.movies.movies_controller import addMovies, removeMovie, setWatched, getWatchList
 from fastapi import APIRouter, Depends
 from backend.schemas.movie_schema import MovieToWatchList, Watched
 from backend.utils.user_authorization import get_current_user
-#This page will handle all user related urls. Like Login , Login etc
+
+#This will handle all watchlist related operations
     
     
 movies_router = APIRouter()
@@ -18,3 +19,7 @@ async def removeFromWatchList(movieData : MovieToWatchList, user = Depends(get_c
 @movies_router.post('/markWatched')
 async def markWatched(movieData : Watched,  user = Depends(get_current_user)):
     return setWatched(movieData, user)
+
+@movies_router.get('/displayWatchlist')
+async def displayWatched(user = Depends(get_current_user)):
+    return getWatchList(user)

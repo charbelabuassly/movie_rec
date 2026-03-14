@@ -1,5 +1,5 @@
 from fastapi import HTTPException
-from backend.models.movies.movies_model import checkMovie, addMovie as addMovieModel, removeMovie as removeMovieModel, setWatched as setWatchedModel
+from backend.models.movies.movies_model import checkMovie, addMovie as addMovieModel, removeMovie as removeMovieModel, setWatched as setWatchedModel, displayMovies
 from backend.models.movies.tags_model import insert_tag
 from backend.models.movies.ratings_model import insert_rating
 
@@ -57,4 +57,20 @@ def setWatched(movieData, user) -> dict:
             "status": True,
             "message": "Movie set as watched",
             "data": None,
+        }
+
+def getWatchList(user):
+    userId = user['userId']
+    movieData = displayMovies(userId)
+    if not movieData:
+        return {
+            "status": True,
+            "message": "No movies found",
+            "data": [],
+        }
+    else:
+        return {
+            "status": True,
+            "message": "Watchlist movies returned",
+            "data": movieData
         }

@@ -60,7 +60,7 @@ def setWatched(movieData, user) -> dict:
         }
 
 def getWatchList(user):
-    userId = user['userId']
+    userId = user['user_id']
     movieData = displayMovies(userId)
     if not movieData:
         return {

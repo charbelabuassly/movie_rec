@@ -9,17 +9,17 @@ from backend.utils.user_authorization import get_current_user
 movies_router = APIRouter()
 
 @movies_router.post('/addWatchlist')
-async def addToWatchList(movieData : MovieToWatchList, user = Depends(get_current_user)):
+def addToWatchList(movieData : MovieToWatchList, user = Depends(get_current_user)):
     return addMovies(movieData, user)
 
 @movies_router.post('/removeWatchList')
-async def removeFromWatchList(movieData : MovieToWatchList, user = Depends(get_current_user)):
+def removeFromWatchList(movieData : MovieToWatchList, user = Depends(get_current_user)):
     return removeMovie(movieData, user)
 
 @movies_router.post('/markWatched')
-async def markWatched(movieData : Watched,  user = Depends(get_current_user)):
+def markWatched(movieData : Watched,  user = Depends(get_current_user)):
     return setWatched(movieData, user)
 
 @movies_router.get('/displayWatchlist')
-async def displayWatched(user = Depends(get_current_user)):
+def displayWatched(user = Depends(get_current_user)):
     return getWatchList(user)

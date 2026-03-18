@@ -19,5 +19,6 @@ def getTopGenreMovies(genre_id : int):
     cur = cnx.cursor(dictionary=True, buffered= True)
     cur.execute(query, (genre_id,))
     tmpg = cur.fetchall()
+    cur.close()
     return tmpg # will return none if nothing
 

@@ -7,11 +7,11 @@ from fastapi import APIRouter
 
 auth_user = APIRouter()
 @auth_user.post('/login')
-async def login(request : LoginRequest):
+def login(request : LoginRequest):
     return login_controller(request)
 
 
 
 @auth_user.post('/signup')
-async def signup(request : SignupRequest):
+def signup(request : SignupRequest):
     return signup_controller(request)

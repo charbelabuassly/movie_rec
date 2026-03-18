@@ -48,11 +48,13 @@ def setWatched(movieId : int, userId : int):
 def displayMovies(userId: int):
     select_query = """
         select l.imdb_id, m.title, w.movie_id
-        movfrom (select movie_id , watched from watch_list where user_id = (%s) and is_deleted = 0) w
+        from (select movie_id , watched from watch_list where user_id = (%s) and is_deleted = 0) w
         inner join movies m on m.movie_id = w.movie_id 
-        inner join links l where m.ie_id = l.movie_id
+        inner join links l on m.movie_id = l.movie_id
     """
     cur = cnx.cursor(dictionary=True, buffered=True)
     cur.execute(select_query, (userId,))
     cnx.commit()
+    data = cur.fetchall()
     cur.close()
+    return data 

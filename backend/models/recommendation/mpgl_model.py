@@ -22,4 +22,5 @@ def getPopularGenres():
     cur = cnx.cursor(dictionary=True, buffered= True)
     cur.execute(query)
     mpoat = cur.fetchall()
+    cur.close()
     return mpoat # will return none if nothing

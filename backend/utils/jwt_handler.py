@@ -17,13 +17,17 @@ ALGORITHM = os.getenv('ALGORITHM')
 
 #The first function we need is the token creator function
 def create_token(data : dict, expire_time : int):
-    payload = data.copy()
-    #We will pass a fixed 1 hour expire time from our current time
-    expiry_time = datetime.now(timezone.utc) + timedelta(hours = expire_time) #timezone.utc will be used to negate timezone issues
-    payload['exp'] = expiry_time
-    #The expiry time has been set, now we need to build the jwt
-    user_jwt = jwt.encode(payload=payload, key=SECRET_KEY, algorithm=ALGORITHM)
-    return user_jwt 
+    try:
+        payload = data.copy()
+        #We will pass a fixed 1 hour expire time from our current time
+        expiry_time = datetime.now(timezone.utc) + timedelta(hours=expire_time) #timezone.utc will be used to negate timezone issues
+        payload['exp'] = expiry_time
+        #The expiry time has been set, now we need to build the jwt
+        user_jwt = jwt.encode(payload=payload, key=SECRET_KEY, algorithm=ALGORITHM)
+        return user_jwt
+    except Exception as e:
+        # Instead of crashing, gracefully raise an HTTPException when token generation fails
+        raise HTTPException(status_code=500, detail="Token generation failed due to an internal configuration error.")
 
 #Returns the user email and checks for any invalid token
 def get_user(token : str = Depends(o2_scheme)):

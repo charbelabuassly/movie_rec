@@ -6,12 +6,13 @@ from fastapi import APIRouter
     
 
 auth_user = APIRouter()
-@auth_user.post('/login')
+@auth_user.post('/login') 
 def login(request : LoginRequest):
     return login_controller(request)
 
 
 
-@auth_user.post('/signup')
+@auth_user.post('/signup') 
 def signup(request : SignupRequest):
     return signup_controller(request)
+

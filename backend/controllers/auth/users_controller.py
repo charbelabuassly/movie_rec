@@ -45,11 +45,16 @@ def signup_controller(request) -> dict: #Will return jwt token upon account crea
         if row is not None:
             raise HTTPException(status_code=400, detail="Account already exists")
         else:
-            register_user({"name" : name, "password" : password, "email" : email})
-            #Create the token
+            # 1. Create the token FIRST. 
+            # If this crashes (e.g., missing .env variables), it happens BEFORE the database is touched.
+            token = create_token({"email": email}, EXPIRE_TIME)
+            
+            # 2. If token creation succeeded, THEN insert the user into the database.
+            register_user({"name": name, "password": password, "email": email})
+            
             return {
                 "status": True,
                 "message": "Signup successful",
-                "data": {"access_token": create_token({"email": email}, EXPIRE_TIME)},
+                "data": {"access_token": token},
             }
         

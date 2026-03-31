@@ -23,11 +23,13 @@ def login_controller(request) -> dict: #We will return the token as {'access-tok
     if not(verify_password(password,stored_pass)):
         raise HTTPException(status_code=401, detail="Invalid Credentials")
     else:
+        
+        token = create_token({"email": email}, EXPIRE_TIME)
         #we can create the token
         return {
             "status": True,
             "message": "Login successful",
-            "data": {"access_token": create_token({"email": email}, EXPIRE_TIME)},
+            "data": {"access_token": token},
         }
         
         

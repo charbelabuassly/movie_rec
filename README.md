@@ -1,1 +1,1 @@
-##### This project is still in development!
+##### This project is still under development!
